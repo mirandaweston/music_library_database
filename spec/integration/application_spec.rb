@@ -15,6 +15,27 @@ describe Application do
     connection.exec(artists_seeds_sql)
   end
 
+  context 'GET /albums'  do
+    it 'should return the list of albums with links' do
+      response = get('/albums')
+      
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a><br />')
+      expect(response.body).to include('<a href="/albums/3">Waterloo</a><br />')
+    end
+  end
+  
+  context 'GET /albums/:id' do
+    it 'returns info about album 2' do
+      response = get('/albums/2')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Surfer Rosa</h1>')
+      expect(response.body).to include('Release year: 1988')
+      expect(response.body).to include('Artist: Pixies')
+    end
+  end
+
   context "POST /albums" do
     it 'creates a new album' do
       response = post(
@@ -32,6 +53,26 @@ describe Application do
       expect(response.body).to include('Voyage')
     end
   end
+  
+  context 'GET /artists' do
+    it 'should return the list of artists with links' do
+      response = get('/artists')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<a href="artists/2">ABBA</a><br />')
+      expect(response.body).to include('<a href="artists/3">Taylor Swift</a><br />')
+    end
+  end
+  
+  context 'GET /artists/:id' do
+    it 'returns info about artist 2 with link' do
+      response = get('/artists/2')
+      
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Name: ABBA')
+      expect(response.body).to include('Genre: Pop')
+    end
+  end
 
   context "POST /artists" do
     it 'creates a new artist' do
@@ -46,37 +87,6 @@ describe Application do
 
       response = get('/artists')
       expect(response.body).to include('Wild nothing')
-    end
-  end
-
-  context 'GET /albums/:id' do
-    it 'returns info about album 2' do
-      response = get('/albums/2')
-
-      expect(response.status).to eq(200)
-      expect(response.body).to include('<h1>Surfer Rosa</h1>')
-      expect(response.body).to include('Release year: 1988')
-      expect(response.body).to include('Artist: Pixies')
-    end
-  end
-
-  context 'GET /albums'  do
-    it 'should return the list of albums with links' do
-      response = get('/albums')
-      
-      expect(response.status).to eq(200)
-      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a><br />')
-      expect(response.body).to include('<a href="/albums/3">Waterloo</a><br />')
-    end
-  end
-
-  context 'GET /artists' do
-    it 'should return the list of artists with links' do
-      response = get('/artists')
-
-      expect(response.status).to eq(200)
-      expect(response.body).to include('<a href="artists/2">ABBA</a><br />')
-      expect(response.body).to include('<a href="artists/3">Taylor Swift</a><br />')
     end
   end
 end
