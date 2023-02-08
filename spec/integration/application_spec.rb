@@ -15,16 +15,16 @@ describe Application do
     connection.exec(artists_seeds_sql)
   end
 
-  context "GET /albums" do
-    it 'returns the list of albums' do
-      response = get('/albums')
+  # context "GET /albums" do
+  #   it 'returns the list of albums' do
+  #     response = get('/albums')
 
-      expected_response = 'Doolittle, Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
+  #     expected_response = 'Doolittle, Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
 
-      expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
-    end
-  end
+  #     expect(response.status).to eq(200)
+  #     expect(response.body).to eq(expected_response)
+  #   end
+  # end
 
   context "POST /albums" do
     it 'creates a new album' do
@@ -79,6 +79,16 @@ describe Application do
       expect(response.body).to include('<h1>Surfer Rosa</h1>')
       expect(response.body).to include('Release year: 1988')
       expect(response.body).to include('Artist: Pixies')
+    end
+  end
+
+  context 'GET /albums'  do
+    it 'should return the list of albums with links' do
+      response = get('/albums')
+      
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a><br />')
+      expect(response.body).to include('<a href="/albums/3">Waterloo</a><br />')
     end
   end
 end
