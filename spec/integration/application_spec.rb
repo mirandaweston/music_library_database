@@ -37,7 +37,7 @@ describe Application do
   end
 
   context 'GET /albums/new' do
-    it 'return the form to add a new album' do
+    it 'returns the form to add a new album' do
       response = get('/albums/new')
 
       expect(response.status).to eq(200)
@@ -45,6 +45,17 @@ describe Application do
       expect(response.body).to include('<input type="text" name="album_title" />')
       expect(response.body).to include('<input type="text" name="album_release_year" />')
       expect(response.body).to include('<input type="text" name="album_artist_id" />')
+    end
+  end
+
+  context 'GET /artists/new' do
+    it 'returns the form to add a new artist' do
+      response = get('/artists/new')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('form method="POST" action="/artists">')
+      expect(response.body).to include('input type="text" name="artist_name" />')
+      expect(response.body).to include('input type="text" genre="artist_genre" />')
     end
   end
 
