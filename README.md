@@ -5,10 +5,15 @@
 ## 1. Route signatures
 
   ### Request: GET `/albums`     | Response: 200 OK (lists all albums)
+
   ### Request: GET `/artists`    | Response: 200 OK (lists all artists)
+
   ### Request: GET `/albums/:id` | Response: 200 OK (info about one album)
+
   ### Request: GET `/artists/:id`| Response: 200 OK (info about one artist)
+
   ### Request: POST `/albums`    | Response: 200 OK (info about all albums)
+  
   ### Request: POST `/artists`   | Response: 200 OK (info about all artists)
 
 
